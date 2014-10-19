@@ -1,1 +1,3 @@
-This project will be a command shell that can read in a single line of input and execute it.
+rshell
+
+Rshell can run a single command wihtout flags and execute it.
