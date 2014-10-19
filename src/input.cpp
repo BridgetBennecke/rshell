@@ -8,7 +8,7 @@ void getInput(unsigned max, char* args[])
 {
 	string input;
 	cout << "$ ";
-	cin >> input;
+    getline(cin,input);
     cout << flush;
 
 	char* cinput = strdup(input.c_str());
