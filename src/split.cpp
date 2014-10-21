@@ -2,7 +2,6 @@
 #include <iostream>
 #include <unistd.h>
 #include <cstdlib>
-
 #include <cstdio>
 using namespace std;
 
@@ -44,15 +43,26 @@ void split(char* cinput, char* args[], char split[])
     else                                                //If there are multiple commands
     {
         unsigned size = count(split,input);
-        cout << "size = " << size << endl;
         char* temp = strtok(input,split);
         for (unsigned k = 1; k < size; ++k)            //Fork enough processes to handle the number of commands
         {                                               //and run in order
             int t = fork();
             if (t != 0)
             {
-                wait(NULL);
+                int* stat;
+                wait(&stat);
+                // cout << "stat = " << stat << endl;
+                // cout << "split = \"" << split << "\"" << endl;
                 temp = strtok(NULL,split);
+                if (strcmp(split, "||") == 0 && WEXITSTATUS(stat) != 1) //Logic for "||"
+                {
+                    temp = strtok(NULL,split);
+                    ++k;
+                }
+                else if (strcmp(split, "&&") == 0 && WEXITSTATUS(stat) != 0) //Logic for "&&"
+                {
+                    exit(1);
+                }
             }
             if (t == 0)
             {
