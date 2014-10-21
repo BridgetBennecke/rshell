@@ -1,23 +1,39 @@
 #include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 #include <string>
 #include <iostream>
 #include <cstdlib>
 using namespace std;
 
-void getInput(unsigned max, char* args[])
+char* getInput(char** cinput)
 {
+                                //Gets whole line of input via getline for strings
 	string input;
 	cout << "$ ";
     getline(cin,input);
     cout << flush;
-
-	char* cinput = strdup(input.c_str());
-	char delim[] = " ";
-
-	args[0] = strtok(cinput, delim);
-	for (unsigned k = 1; k < max; ++k)
-	{
-		args[k] = strtok(NULL,delim);
-	}
-	return;
+                                //Create pointer to cstring version of input
+	*cinput = strdup(input.c_str());
+    char* temp = new char[3];   //Create variable to return
+    for (unsigned j = 0; j < (input.size() - 1); ++j)   //Determines type of connector, if any
+    {
+        if (input[j] == ';')
+        {
+            strcpy(temp,";");
+            return temp;
+        }
+        else if (input[j] == '|' && input[j+1] == '|')
+        {
+            strcpy(temp,"||");
+            return temp;
+        }
+        else if (input[j] == '&' && input[j+1] == '&')
+        {
+            strcpy(temp,"&&");
+            return temp;
+        }
+    }
+    return NULL;
 }
