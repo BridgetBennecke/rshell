@@ -16,6 +16,9 @@ char* getInput(char** cinput)
     cout << flush;
                                 //Create pointer to cstring version of input
 	*cinput = strdup(input.c_str());
+    char comment[] = "#";       //Deletes commented section of input
+    *cinput = strtok(*cinput, comment);
+
     char* temp = new char[3];   //Create variable to return
     for (unsigned j = 0; j < (input.size() - 1); ++j)   //Determines type of connector, if any
     {
