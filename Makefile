@@ -1,8 +1,9 @@
 
 all:
-	g++ src/main.cpp
+	mkdir bin
+	g++ -Wall -Werror -ansi -pendantic src/main.cpp -o bin/rshell.out
 
 rshell:
-	g++ src/main.cpp
+	g++ -Wall -Werror -ansi -pendantic src/main.cpp -o bin/rshell.out
 
 
