@@ -28,7 +28,7 @@ int main()
             break;
         }
     }
-	    unsigned argsmax = 11;
+	    unsigned argsmax = 200;
         char* cinput;                           //Cstring line to be inputted
 	    char** args = new char*[argsmax+1];     //Allocate list of arguments
         char* mult = getInput(&cinput);         //mult is type of connector, getInput creates cinput
