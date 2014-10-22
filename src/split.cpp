@@ -14,6 +14,10 @@ unsigned count(char split[],char* input)                //Returns how many seper
         if (input[c] == split[0])
         {
             count += 1;
+            if (split[1] == '&' || split[1] == '|')
+            {
+                ++c;
+            }
         }
     }
     return count;
@@ -40,9 +44,9 @@ void split(char* cinput, char* args[], char split[])
     else                                                //If there are multiple commands
     {
         unsigned size = count(split,input);
+        cout << "size = " << size << endl;
         char* temp = strtok(input,split);
-        cout << temp << endl;
-        for (unsigned k = 0; k < size; ++k);            //Fork enough processes to handle the number of commands
+        for (unsigned k = 1; k < size; ++k)            //Fork enough processes to handle the number of commands
         {                                               //and run in order
             int t = fork();
             if (t != 0)
