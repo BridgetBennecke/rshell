@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -11,7 +12,13 @@ char* getInput(char** cinput)
 {
                                 //Gets whole line of input via getline for strings
 	string input;
-	cout << "$ ";
+    char hostname[20];
+    if (gethostname(hostname,20) == -1)
+    {
+        cerr << "Error!: cannot get hostname" << endl;
+        exit(1);
+    }
+	cout << getlogin() << "@" << hostname << "$ ";
     getline(cin,input);
     cout << flush;
                                 //Create pointer to cstring version of input
