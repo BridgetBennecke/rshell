@@ -38,6 +38,7 @@ void split(char* cinput, char* args[], char split[])
                 break;
             }
         }
+        // delete[] input;
         return;
     }
     else                                                //If there are multiple commands

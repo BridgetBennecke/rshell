@@ -11,11 +11,11 @@ using namespace std;
 char* getInput(char** cinput)
 {
                                 //Gets whole line of input via getline for strings
-	string input;
-    char hostname[20];
-    if (gethostname(hostname,20) == -1)
+    string input;
+    char hostname[200];
+    if (gethostname(hostname,200) == -1)
     {
-        cerr << "Error!: cannot get hostname" << endl;
+        perror("gethostname");
         exit(1);
     }
 	cout << getlogin() << "@" << hostname << "$ ";
