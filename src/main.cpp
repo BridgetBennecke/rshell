@@ -28,7 +28,7 @@ int main()
             break;
         }
     }
-	    unsigned argsmax = 11;
+	unsigned argsmax = 200;
         char* cinput;                           //Cstring line to be inputted
 	    char** args = new char*[argsmax+1];     //Allocate list of arguments
         char* mult = getInput(&cinput);         //mult is type of connector, getInput creates cinput
@@ -47,11 +47,11 @@ int main()
 	    // }
 
 
-	    int test = execvp(args[0],args);        //Run args, and print error if applicable
-	    if (test != 0)
-	    {
-	        perror("execvp");
-	        exit(1);
-	    }
+	int test = execvp(args[0],args);        //Run args, and print error if applicable
+        if (test != 0)
+	{
+	    perror("execvp");
+	    exit(1);
+	}
 	return 0;
 }
