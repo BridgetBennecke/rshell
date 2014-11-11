@@ -133,7 +133,7 @@ string output;
                 while((direntp = readdir(dirp))){
                     if(direntp->d_name[0] == argv[i][0]){
                         for(unsigned int j = 1; i < strlen(argv[i]); j++){
-                                if(direntp->d_name[j] == 0 &&
+                                if(direntp->d_name[j] == 1 &&
                                     argv[i][j] == 0){
                                     cout << "Error: Output file already exists" << endl;
                                 exit(1);
