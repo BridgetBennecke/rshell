@@ -4,6 +4,8 @@ test=if [ ! -d bin ]; then mkdir bin; fi
 all:
 	$(test)
 	g++ $(flags) src/main.cpp -o bin/rshell
+	g++ $(flags) src/ls.cpp -o bin/ls
+	g++ $(flags) src/cp.cpp -o bin/cp
 
 rshell:
 	$(test)
