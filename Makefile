@@ -1,11 +1,13 @@
 flags=-Wall -Werror -ansi -pedantic
+test=if [ ! -d bin ]; then mkdir bin; fi
 
 all:
-	if [ ! -d bin ]; then mkdir bin; fi
+	$(test)
 	g++ $(flags) src/main.cpp -o bin/rshell
 
 rshell:
-	if [ ! -d bin ]; then mkdir bin; fi
+	$(test)
 	g++ $(flags) src/main.cpp -o bin/rshell
+
 
 
