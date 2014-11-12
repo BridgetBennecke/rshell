@@ -17,3 +17,18 @@ rShell can run multiple commands.
 * seems to only successfully executes commands in /bin
 * a line cannot exclusively be a comment, else ```#``` is seen as a command
 
+#ls
+
+##Attributes
+
+* Supports ```-a```, ```-l```, and ```-R```
+* Outputs in single column
+* Supports multi-file input
+
+##Known Bugs
+
+* no syntax highlighting
+* for ```-l```, the date is displayed as a number
+* ```-R``` does not go into sub-directories, and outputs error for ```opendir```
+
+
