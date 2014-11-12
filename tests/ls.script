@@ -1,0 +1,145 @@
+Script started on Tue 11 Nov 2014 11:47:57 PM PST
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ make
+if [ ! -d bin ]; then mkdir bin; fi
+g++ -Wall -Werror -ansi -pedantic src/main.cpp -o bin/rshell
+g++ -Wall -Werror -ansi -pedantic src/ls.cpp -o bin/ls
+g++ -Wall -Werror -ansi -pedantic src/cp.cpp -o bin/cp
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls
+LICENSE
+bin
+README.md
+test
+tests
+src
+tester
+a.out
+Makefile
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls -a
+LICENSE
+..
+bin
+.
+README.md
+.git
+test
+tests
+src
+tester
+a.out
+Makefile
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin /[K[K/ls -l
+-rw-rw-r-- 1 bridget bridget 101 11 11 23:26 LICENSE
+drwxrwxr-x 2 bridget bridget 4096 11 11 23:48 bin
+-rw-rw-r-- 1 bridget bridget 1113 11 11 23:26 README.md
+drwxrwxr-x 3 bridget bridget 4096 11 11 23:47 test
+drwxrwxr-x 2 bridget bridget 4096 11 11 23:26 tests
+drwx------ 2 bridget bridget 4096 11 11 23:26 src
+-rw-rw-r-- 1 bridget bridget 440 11 11 17:59 tester
+-rwxrwxr-x 1 bridget bridget 63559 11 11 22:20 a.out
+-rw-rw-r-- 1 bridget bridget 362 11 11 23:37 Makefile
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls -R
+LICENSE
+bin
+README.md
+test
+tests
+src
+tester
+a.out
+Makefile
+
+src:
+split.cpp
+input.cpp
+a.out
+ls.cpp
+cp.cpp
+Timer.h
+main.cpp
+
+tests:
+exec.script
+
+test:
+intest1
+intest2
+temp
+ls.script
+
+temp:
+opendir: No such file or directory
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls -al
+-rw-rw-r-- 1 bridget bridget 101 11 11 23:26 LICENSE
+drwxrwxr-x 6 bridget bridget 4096 11 5 10:34 ..
+drwxrwxr-x 2 bridget bridget 4096 11 11 23:48 bin
+drwx------ 7 bridget bridget 4096 11 11 23:37 .
+-rw-rw-r-- 1 bridget bridget 1113 11 11 23:26 README.md
+drwx------ 8 bridget bridget 4096 11 11 23:37 .git
+drwxrwxr-x 3 bridget bridget 4096 11 11 23:47 test
+drwxrwxr-x 2 bridget bridget 4096 11 11 23:26 tests
+drwx------ 2 bridget bridget 4096 11 11 23:26 src
+-rw-rw-r-- 1 bridget bridget 440 11 11 17:59 tester
+-rwxrwxr-x 1 bridget bridget 63559 11 11 22:20 a.out
+-rw-rw-r-- 1 bridget bridget 362 11 11 23:37 Makefile
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls -ls[Ka
+-rw-rw-r-- 1 bridget bridget 101 11 11 23:26 LICENSE
+drwxrwxr-x 6 bridget bridget 4096 11 5 10:34 ..
+drwxrwxr-x 2 bridget bridget 4096 11 11 23:48 bin
+drwx------ 7 bridget bridget 4096 11 11 23:37 .
+-rw-rw-r-- 1 bridget bridget 1113 11 11 23:26 README.md
+drwx------ 8 bridget bridget 4096 11 11 23:37 .git
+drwxrwxr-x 3 bridget bridget 4096 11 11 23:47 test
+drwxrwxr-x 2 bridget bridget 4096 11 11 23:26 tests
+drwx------ 2 bridget bridget 4096 11 11 23:26 src
+-rw-rw-r-- 1 bridget bridget 440 11 11 17:59 tester
+-rwxrwxr-x 1 bridget bridget 63559 11 11 22:20 a.out
+-rw-rw-r-- 1 bridget bridget 362 11 11 23:37 Makefile
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls -lar[KR
+-rw-rw-r-- 1 bridget bridget 101 11 11 23:26 LICENSE
+drwxrwxr-x 6 bridget bridget 4096 11 5 10:34 ..
+drwxrwxr-x 2 bridget bridget 4096 11 11 23:48 bin
+drwx------ 7 bridget bridget 4096 11 11 23:37 .
+-rw-rw-r-- 1 bridget bridget 1113 11 11 23:26 README.md
+drwx------ 8 bridget bridget 4096 11 11 23:37 .git
+drwxrwxr-x 3 bridget bridget 4096 11 11 23:47 test
+drwxrwxr-x 2 bridget bridget 4096 11 11 23:26 tests
+drwx------ 2 bridget bridget 4096 11 11 23:26 src
+-rw-rw-r-- 1 bridget bridget 440 11 11 17:59 tester
+-rwxrwxr-x 1 bridget bridget 63559 11 11 22:20 a.out
+-rw-rw-r-- 1 bridget bridget 362 11 11 23:37 Makefile
+
+src:
+drwxrwxr-x 6 bridget bridget 4096 11 5 10:34 ..
+stat: No such file or directory
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls src/[K
+split.cpp
+input.cpp
+a.out
+ls.cpp
+cp.cpp
+Timer.h
+main.cpp
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls tests [A
+exec.script
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ bin/ls -a te s[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kte sts src/[K
+..
+split.cpp
+.
+.main.cpp.swo
+input.cpp
+a.out
+.main.cpp.swp
+ls.cpp
+cp.cpp
+.input.cpp.swo
+.input.cpp.swp
+Timer.h
+main.cpp
+..
+.
+exec.script
+]0;bridget@chrali: ~/Documents/14Fall/cs-100/rshellbridget@chrali:~/Documents/14Fall/cs-100/rshell$ exit
+exit
+
+Script done on Tue 11 Nov 2014 11:50:03 PM PST
