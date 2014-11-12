@@ -1,4 +1,5 @@
 #include "input.cpp"
+#include "cp.cpp"
 #include <cstdlib>
 #include <unistd.h>
 #include <sys/types.h>
@@ -7,6 +8,9 @@
 #include "split.cpp"
 #include <stdio.h>
 #include <iostream>
+
+#include <cstdio>
+
 using namespace std;
 
 int main()
@@ -28,11 +32,13 @@ int main()
             break;
         }
     }
-	unsigned argsmax = 200;
+    unsigned argsmax = 200;
         char* cinput;                           //Cstring line to be inputted
 	    char** args = new char*[argsmax+1];     //Allocate list of arguments
         char* mult = getInput(&cinput);         //mult is type of connector, getInput creates cinput
-        split(cinput,args,mult);                //Will fork processes if necessary and create args
+
+        //Will fork processes if necessary and create args
+        split(cinput,args,mult);
         if (strcmp(args[0],"exit") == 0)
         {
             return 2;
@@ -40,18 +46,30 @@ int main()
 
 
 
-	    // for (unsigned l = 0; l < argsmax; ++l) //This group prints out args values for testing
+        //This group prints out args values for testing
+        // printf("cinput: %s\n", cinput);
+	    // for (unsigned l = 0; l < argsmax; ++l)
         // {
-            // cout << "in for loop" << endl;
+            // printf("l: %d\nargs[l]: %p\n", l, args[l]);
 	        // cout << args[l] << endl;
 	    // }
 
-
-	int test = execvp(args[0],args);        //Run args, and print error if applicable
-        if (test != 0)
-	{
-	    perror("execvp");
-	    exit(1);
-	}
+    if (strcmp(args[0], "ls") == 0)
+    {
+        //ls(args);
+    }
+    else if (strcmp(args[0], "cp") == 0)
+    {
+        cp(args);
+    }
+    else
+    {
+	    int test = execvp(args[0],args);        //Run args, and print error if applicable
+            if (test != 0)
+	    {
+	        perror("execvp");
+	        exit(1);
+	    }
+    }
 	return 0;
 }

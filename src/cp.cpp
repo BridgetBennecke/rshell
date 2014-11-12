@@ -55,12 +55,12 @@ void copyMethod(const string input, const string output, size_t count)
         perror("open");
         exit(1);
     }
-    char buf[count];
+    char* buf = new char;
     int test = 1;
 
 
     do{
-        test = read(in, buf, sizeof(buf));
+        test = read(in, buf, count);
         if(test == -1){
             perror("read");
             exit(1);
@@ -85,25 +85,28 @@ void copyMethod(const string input, const string output, size_t count)
 }
 
 
-int main(int argc, char *argv[]){
+void cp(char** argv)
+{
+    unsigned argc = 0;
+    for (unsigned a = 0; argv[a] != NULL; ++a)
+    {
+        cout << a << ": " << argv[a] << endl;
+        ++argc;
+    }
 
-    bool flag = false;
-
-    if(argc < 3 || argc > 4){
+    if(argc < 3 || argc > 4)
+    {
         cerr << "Inappropriate number of arguments" << endl;
         exit(1);
     }
     if (argc == 4)
     {
-        for(unsigned int i = 1; i < argc; i++){
-            if(argv[i][0] == '-'){
-                if(argv[i][1] == 'f'){
-                        flag = true;
-                }
-                else{
-                    cerr << "Error: Wrong flag" << endl;
-                    exit(1);
-                }
+        for(unsigned int i = 1; i < argc; i++)
+        {
+            if(argv[i][0] == '-' && argv[i][1] != 'f')
+            {
+                cerr << "Error: Wrong flag" << endl;
+                exit(1);
             }
         }
     }
@@ -112,32 +115,41 @@ int main(int argc, char *argv[]){
     string output;
 
     struct stat statbuf;
-    for(unsigned int i = 1; i < argc; i++){
-        if(argv[i][0] != '-'){
-            if(stat(argv[i], &statbuf) == -1){
+    for(unsigned int i = 1; i < argc; i++)
+    {
+        if(argv[i][0] != '-')
+        {
+            if(stat(argv[i], &statbuf) == -1)
+            {
                 cout << "argv[i]: " << argv[i] << endl;
-                perror("stat1");
+                perror("stat");
                 exit(1);
             }
             input = argv[i];
             break;
         }
     }
-    for(unsigned int i = 2; i < argc; i++){
-        if(argv[i][0] != '-' && argv[i][0] != '/'){
-
-                                                                        //Check if file already exists
+    for(unsigned int i = 2; i < argc; i++)
+    {
+        if(argv[i][0] != '-' && argv[i][0] != '/')
+        {
+            //Check if file already exists
             char const *dirName = ".";
             DIR *dirp = opendir(dirName);
             dirent *direntp;
-            while((direntp = readdir(dirp))){
-                if(direntp->d_name[0] == argv[i][0]){
-                    for(unsigned int j = 1; i < strlen(argv[i]); j++){
-                        if(direntp->d_name[j] == 1 && argv[i][j] == 0){
+            while((direntp = readdir(dirp)))
+            {
+                if(direntp->d_name[0] == argv[i][0])
+                {
+                    for(unsigned int j = 1; i < strlen(argv[i]); j++)
+                    {
+                        if(direntp->d_name[j] == 1 && argv[i][j] == 0)
+                        {
                             cout << "Error: Output file already exists" << endl;
                             exit(1);
                         }
-                        else{
+                        else
+                        {
                             break;
                         }
                     }
@@ -145,11 +157,13 @@ int main(int argc, char *argv[]){
             }
 
             int check = creat(argv[i],S_IRUSR|S_IWUSR);
-            if(check == -1){
+            if(check == -1)
+            {
                 perror("creat");
                 exit(1);
             }
-            else{
+            else
+            {
                 output = argv[i];
             }
         }
@@ -199,6 +213,4 @@ int main(int argc, char *argv[]){
         cout << "user: " << eUser << endl;
         cout << "system: " << eSystem << endl << endl;
     }
-
-    return 0;
-
+}
