@@ -9,5 +9,12 @@ rshell:
 	$(test)
 	g++ $(flags) src/main.cpp -o bin/rshell
 
+ls:
+	$(test)
+	g++ $(flags) src/ls.cpp -o bin/ls
+
+cp:
+	$(test)
+	g++ $(flags) src/cp.cpp -o bin/cp
 
 

@@ -1,5 +1,4 @@
 #include "input.cpp"
-#include "cp.cpp"
 #include <cstdlib>
 #include <unistd.h>
 #include <sys/types.h>
@@ -54,22 +53,22 @@ int main()
 	        // cout << args[l] << endl;
 	    // }
 
-    if (strcmp(args[0], "ls") == 0)
-    {
+    //if (strcmp(args[0], "ls") == 0)
+    //{
         //ls(args);
-    }
-    else if (strcmp(args[0], "cp") == 0)
-    {
-        cp(args);
-    }
-    else
-    {
+    //}
+    //else if (strcmp(args[0], "cp") == 0)
+    //{
+        //cp(args);
+    //}
+    //else
+    //{
 	    int test = execvp(args[0],args);        //Run args, and print error if applicable
             if (test != 0)
 	    {
 	        perror("execvp");
 	        exit(1);
 	    }
-    }
+    //}
 	return 0;
 }

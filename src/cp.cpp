@@ -85,15 +85,8 @@ void copyMethod(const string input, const string output, size_t count)
 }
 
 
-void cp(char** argv)
+int main(int argc, char** argv)
 {
-    unsigned argc = 0;
-    for (unsigned a = 0; argv[a] != NULL; ++a)
-    {
-        cout << a << ": " << argv[a] << endl;
-        ++argc;
-    }
-
     if(argc < 3 || argc > 4)
     {
         cerr << "Inappropriate number of arguments" << endl;
@@ -101,7 +94,7 @@ void cp(char** argv)
     }
     if (argc == 4)
     {
-        for(unsigned int i = 1; i < argc; i++)
+        for(int i = 1; i < argc; i++)
         {
             if(argv[i][0] == '-' && argv[i][1] != 'f')
             {
@@ -115,7 +108,7 @@ void cp(char** argv)
     string output;
 
     struct stat statbuf;
-    for(unsigned int i = 1; i < argc; i++)
+    for(int i = 1; i < argc; i++)
     {
         if(argv[i][0] != '-')
         {
@@ -129,7 +122,7 @@ void cp(char** argv)
             break;
         }
     }
-    for(unsigned int i = 2; i < argc; i++)
+    for(int i = 2; i < argc; i++)
     {
         if(argv[i][0] != '-' && argv[i][0] != '/')
         {
@@ -141,7 +134,7 @@ void cp(char** argv)
             {
                 if(direntp->d_name[0] == argv[i][0])
                 {
-                    for(unsigned int j = 1; i < strlen(argv[i]); j++)
+                    for(unsigned int j = 1; i < (int)strlen(argv[i]); j++)
                     {
                         if(direntp->d_name[j] == 1 && argv[i][j] == 0)
                         {
@@ -213,4 +206,6 @@ void cp(char** argv)
         cout << "user: " << eUser << endl;
         cout << "system: " << eSystem << endl << endl;
     }
+
+    return 0;
 }
