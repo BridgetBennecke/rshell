@@ -23,12 +23,12 @@ rShell can run multiple commands.
 
 * Supports ```-a```, ```-l```, and ```-R```
 * Outputs in single column
-* Supports multi-file input
+* Supports multi-path input
 
 ##Known Bugs
 
 * no syntax highlighting
-* for ```-l```, the date is displayed as a number
-* ```-R``` does not go into sub-directories, and outputs error for ```opendir```
+* for ```-l```, the month is displayed as a number
+* ```-R``` does not go past the current working directory, and outputs error for ```opendir```
 
 
