@@ -1,9 +1,61 @@
+#include <list>
+#include <string>
 #include <sys/wait.h>
 #include <iostream>
 #include <unistd.h>
 #include <cstdlib>
 #include <cstdio>
 using namespace std;
+
+list<string> listRedirect(char* temp,char* directions[])
+{
+    list<string> redirect;
+    unsigned counter = 0;
+    unsigned size = strlen(temp);
+    // cout << "Size = " << size << endl;
+    for (unsigned r = 0; r < size; r++)
+    {
+        // printf("temp[%u] = %c\n",r,temp[r]);
+        // cout << "args[" << r << "][" << j << "] = " << args[r][j] << endl;
+        if (temp[r] == '<')
+        {
+            // cout << '<' << endl;
+            redirect.push_back("<");
+            strcpy(directions[counter],"<");
+            counter++;
+        }
+        else if (temp[r] == '|')
+        {
+            // cout << '|' << endl;
+            // printf("In pipe");
+            strcpy(directions[counter],"|");
+            redirect.push_back("|");
+            counter++;
+            // printf("Leaving pipe");
+        }
+        else if (temp[r] == '>')
+        {
+            // cout << '>' << endl;
+            if (temp[r+1] != 0 && temp[r+1] == '>')
+            {
+                strcpy(directions[counter],">>");
+                redirect.push_back(">>");
+                counter++;
+            }
+            else
+            {
+                strcpy(directions[counter],">");
+                redirect.push_back(">");
+                counter++;
+            }
+        }
+        // else
+        // {
+            // // printf("'%c' not handled\n", temp[r]);
+        // }
+    }
+    return redirect;
+}
 
 //Returns how many seperate arguments are listed
 unsigned count(char* split, char* input)
@@ -29,31 +81,80 @@ void split(char* cinput, char* args[], char split[])
     //If there is only 1 command
     char* input = strdup(cinput);
     unsigned sz = strlen(input);
-    //printf("input: %s\ncinput: %s\nstrlen(input): %u\nstrlen(cinput): %u\n"
-            //, input, cinput, (unsigned int)strlen(input),
-            //(unsigned int)strlen(cinput));
     if (split == NULL)
     {
+        // printf("In single\n");
         //then split its args and run it
-        char delim[] = " ";
-        args[0] = strtok(input,delim);
-        //cout << "strlen(input): " << strlen(input) << endl;
-        for (unsigned h = 1; h < sz; ++h)
+        // char** directions = new char*;
+
+        char** directions = new char*[200];
+        for(unsigned i = 0; i < 200; i++)
         {
-            args[h] = strtok(NULL,delim);
-            //printf("pointer: %p\n", args[h]);
-            if (args[h] == NULL)
-            {
-                break;
-            }
-            //cout << "args[" << h << "] = " << args[h] << endl;
-            //cout << "strlen(input): " << strlen(input) << endl;
+            directions[i] = new char[3];
         }
-        // args[strlen(input)] = NULL;
-        // delete[] input;
+
+        list<string> redirect = listRedirect(input, directions);
+        if (!redirect.empty())
+        {
+            cout << "Redirect isn't empty" << endl;
+            unsigned counter = 0;
+            unsigned sz = redirect.size();
+            cout << "Redirect.size = " << sz << endl;
+            char* temp2 = strtok(input,directions[0]);
+            for (unsigned h = 1; h <= sz; h++)
+            {
+                cout << "Forking" << endl;
+                int e = fork();
+                if (e == -1)
+                {
+                    perror("fork");
+                }
+                else if (e != 0)
+                {
+                    cout << "In parent" << endl;
+                    int* stat;
+                    int c = wait(&stat);
+                    if (c == -1)
+                    {
+                        perror("wait");
+                        exit(1);
+                    }
+                    ++counter;
+                    temp2 = strtok(NULL,directions[counter]);
+                }
+                else if (e == 0)
+                {
+                    cout << "In child" << endl;
+                    break;
+                }
+            }
+            char delim[] = " ";
+            unsigned siz = strlen(temp2);
+            args[0] = strtok(temp2,delim);
+            cout << "Args[0] = " << args[0] << endl;
+            for (unsigned i = 1; i < siz; ++i)
+            {
+                args[i] = strtok(NULL,delim);
+                printf("Args[%u] = %s\n",i,args[i]);
+            }
+        }
+        else
+        {
+            printf("Pipe doesn't exist\n");
+            char delim[] = " ";
+            args[0] = strtok(input,delim);
+            for (unsigned h = 1; h < sz; ++h)
+            {
+                 args[h] = strtok(NULL,delim);
+                 if (args[h] == NULL)
+                 {
+                      break;
+                 }
+            }
+        }
         return;
     }
-    else                                                //If there are multiple commands
+    else            //If there are multiple commands
     {
         unsigned size = count(split,input);
         char* temp = strtok(input,split);
@@ -64,8 +165,6 @@ void split(char* cinput, char* args[], char split[])
             {
                 int* stat;
                 wait(&stat);
-                // cout << "stat = " << stat << endl;
-                // cout << "split = \"" << split << "\"" << endl;
                 temp = strtok(NULL,split);
                 if (strcmp(split, "||") == 0 && WEXITSTATUS(stat) != 1) //Logic for "||"
                 {
@@ -82,14 +181,55 @@ void split(char* cinput, char* args[], char split[])
                 break;
             }
         }
-        char delim[] = " ";                             //Break commands into args and run
-        unsigned sz = strlen(temp);
-        args[0] = strtok(temp,delim);
-        for (unsigned i = 1; i < sz; ++i)
+        char** directions = new char*;
+        list<string> redirect = listRedirect(temp, directions);
+        if (!redirect.empty())
         {
-            args[i] = strtok(NULL,delim);
+            unsigned counter = 0;
+            unsigned sz = redirect.size();
+            char* temp2 = strtok(temp,directions[0]);
+            for (unsigned h = 1; h <= sz; h++)
+            {
+                int e = fork();
+                if (e == -1)
+                {
+                    perror("fork");
+                }
+                else if (e != 0)
+                {
+                    int* stat;
+                    int c = wait(&stat);
+                    if (c == -1)
+                    {
+                        perror("wait");
+                        exit(1);
+                    }
+                    ++counter;
+                    temp2 = strtok(NULL,directions[counter]);
+                }
+                else if (e == 0)
+                {
+                    break;
+                }
+            }
+            char delim[] = " ";         //Break commands into args and run
+            unsigned siz = strlen(temp2);
+            args[0] = strtok(temp2,delim);
+            for (unsigned i = 1; i < siz; ++i)
+            {
+                args[i] = strtok(NULL,delim);
+            }
         }
-        // args[strlen(temp)] = NULL;
+        else
+        {
+            char delim[] = " ";         //Break commands into args and run
+            unsigned sz = strlen(temp);
+            args[0] = strtok(temp,delim);
+            for (unsigned i = 1; i < sz; ++i)
+            {
+                args[i] = strtok(NULL,delim);
+            }
+        }
         return;
     }
 }
