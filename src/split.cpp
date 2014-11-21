@@ -1,4 +1,6 @@
-#include <list>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/types.h>
 #include <string>
 #include <sys/wait.h>
 #include <iostream>
@@ -7,68 +9,149 @@
 #include <cstdio>
 using namespace std;
 
-list<string> listRedirect(char* temp,char* directions[])
+int inputRedirect (char* args[])
 {
-    list<string> redirect;
-    unsigned counter = 0;
+    cout << "inputRedirect" << endl;
+    string fileStr;
+    for (unsigned a = 0; args[a+1] != '\0'; a++)
+    {
+        printf("ponter not here args[%u] = \"%s\"\n",a,args[a]);
+        if (strcmp(args[a],"<") == 0)
+        {
+            printf("args[%u] = \"%s\"\n",a+1,args[a+1]);
+            fileStr = args[a+1];
+            cout << endl;
+            args[a] = 0;
+            args[a+1] = 0;
+            cout << "after deletion" << endl;
+            break;
+        }
+    }
+    int file = open(fileStr.c_str(), O_RDONLY);
+    if (file == -1)
+    {
+        perror("open");
+        exit(1);
+    }
+    int fd = dup2(file,0);
+    if (fd == -1)
+    {
+        perror("dup2");
+        exit(1);
+    }
+    return fd;
+}
+
+int outputRedirect (char* args[])
+{
+
+    cout << "outputRedirect" << endl;
+    string fileStr;
+    for (unsigned a = 0; args[a+1] != '\0'; a++)
+    {
+        printf("pointer %p\nargs[%u] = \"%s\"\n",args[a],a,args[a]);
+        if (strcmp(args[a],">") == 0)
+        {
+            printf("pointer %p\nargs[%u] = \"%s\"\n",args[a+1],a+1,args[a+1]);
+            fileStr = args[a+1];
+            cout << endl;
+            args[a] = 0;
+            args[a+1] = 0;
+            cout << "after deletion" << endl;
+            // break;
+        }
+    }
+    printf("File: %s\n",fileStr.c_str());
+    int file = open(fileStr.c_str(), O_RDWR);
+    if (file == -1)
+    {
+        perror("open");
+        exit(1);
+    }
+    int fd = dup2(file,1);
+    if (fd == -1)
+    {
+        perror("dup2");
+        exit(1);
+    }
+    return fd;
+}
+
+int outputRedirect2 (char* args[])
+{
+    cout << "outputRedirect2" << endl;
+    string fileStr;
+    for (unsigned a = 0; args[a+1] != '\0'; a++)
+    {
+        printf("pointer %p\nargs[%u] = \"%s\"\n",args[a],a,args[a]);
+        if (strcmp(args[a],">>") == 0)
+        {
+            printf("pointer %p\nargs[%u] = \"%s\"\n",args[a+1],a+1,args[a+1]);
+            fileStr = args[a+1];
+            cout << endl;
+            args[a] = 0;
+            args[a+1] = 0;
+            cout << "after deletion" << endl;
+            // break;
+        }
+    }
+    printf("File: %s\n",fileStr.c_str());
+    int file = open(fileStr.c_str(), O_RDWR, O_APPEND);
+    if (file == -1)
+    {
+        cout << "p-erroring" << endl;
+        perror("open");
+        exit(1);
+    }
+    lseek(file, 0, SEEK_END);
+    int fd = dup2(file,1);
+    if (fd == -1)
+    {
+        perror("dup2");
+        exit(1);
+    }
+    return fd;
+}
+
+bool hasRedirect(char* temp)
+{
     unsigned size = strlen(temp);
-    // cout << "Size = " << size << endl;
     for (unsigned r = 0; r < size; r++)
     {
         // printf("temp[%u] = %c\n",r,temp[r]);
-        // cout << "args[" << r << "][" << j << "] = " << args[r][j] << endl;
-        if (temp[r] == '<')
+        if (temp[r] == '<'|| temp[r] == '|'|| temp[r] == '>')
         {
-            // cout << '<' << endl;
-            redirect.push_back("<");
-            strcpy(directions[counter],"<");
-            counter++;
+            return true;
         }
-        else if (temp[r] == '|')
-        {
-            // cout << '|' << endl;
-            // printf("In pipe");
-            strcpy(directions[counter],"|");
-            redirect.push_back("|");
-            counter++;
-            // printf("Leaving pipe");
-        }
-        else if (temp[r] == '>')
-        {
-            // cout << '>' << endl;
-            if (temp[r+1] != 0 && temp[r+1] == '>')
-            {
-                strcpy(directions[counter],">>");
-                redirect.push_back(">>");
-                counter++;
-            }
-            else
-            {
-                strcpy(directions[counter],">");
-                redirect.push_back(">");
-                counter++;
-            }
-        }
-        // else
-        // {
-            // // printf("'%c' not handled\n", temp[r]);
-        // }
     }
-    return redirect;
+    return false;
 }
 
 //Returns how many seperate arguments are listed
 unsigned count(char* split, char* input)
 {
     unsigned count = 1;
-    for (unsigned c = 0; c < strlen(input); ++c)
+    if (strcmp(split, ">>") != 0)
     {
-        if (input[c] == split[0])
+        for (unsigned c = 0; c < strlen(input); ++c)
         {
-            count += 1;
-            if (split[1] == '&' || split[1] == '|')
+            if (input[c] == split[0])
             {
-                ++c;
+                count += 1;
+                // if (split[1] == split[0])
+                // {
+                    // ++c;
+                // }
+            }
+        }
+    }
+    else
+    {
+        for (unsigned c = 0; c < strlen(input); ++c)
+        {
+            if (input[c] == split[0] && input[c+1] == split[1])
+            {
+                count += 1;
             }
         }
     }
@@ -83,33 +166,37 @@ void split(char* cinput, char* args[], char split[])
     unsigned sz = strlen(input);
     if (split == NULL)
     {
-        // printf("In single\n");
-        //then split its args and run it
-        // char** directions = new char*;
-
-        char** directions = new char*[200];
-        for(unsigned i = 0; i < 200; i++)
-        {
-            directions[i] = new char[3];
-        }
-
-        list<string> redirect = listRedirect(input, directions);
-        if (!redirect.empty())
+        if (hasRedirect(input))
         {
             cout << "Redirect isn't empty" << endl;
-            unsigned counter = 0;
-            unsigned sz = redirect.size();
-            cout << "Redirect.size = " << sz << endl;
-            char* temp2 = strtok(input,directions[0]);
-            for (unsigned h = 1; h <= sz; h++)
+            int savestdin = dup(0); // Save the stdin and stdout nums
+            if (savestdin == -1)
+            {
+                perror("dup");
+                exit(1);
+            }
+            int savestdout = dup(1);
+            if (savestdout == -1)
+            {
+                perror("dup");
+                exit(1);
+            }
+            int fd = -5;
+
+            char delim[] = "|";
+            char* temp2 = strtok(input,delim); // Split up by pipe if necessary
+            unsigned sz = count(delim, input);
+
+            for (unsigned h = 1; h < sz; h++)
             {
                 cout << "Forking" << endl;
                 int e = fork();
                 if (e == -1)
                 {
                     perror("fork");
+                    exit(1);
                 }
-                else if (e != 0)
+                else if (e != 0) // Parent Process
                 {
                     cout << "In parent" << endl;
                     int* stat;
@@ -119,28 +206,87 @@ void split(char* cinput, char* args[], char split[])
                         perror("wait");
                         exit(1);
                     }
-                    ++counter;
-                    temp2 = strtok(NULL,directions[counter]);
+                    if (fd != -5)
+                    {
+                        if (close(fd) == -1)
+                        {
+                            perror("close");
+                            exit(1);
+                        }
+                        if (dup2(savestdin,0) == -1)
+                        {
+                            perror("dup2");
+                            exit(1);
+                        }
+                        if (dup2(savestdout,1) == -1)
+                        {
+                            perror("dup2");
+                            exit(1);
+                        }
+                    }
+                    temp2 = strtok(NULL,delim);
                 }
-                else if (e == 0)
+                else if (e == 0) // Child Process
                 {
                     cout << "In child" << endl;
                     break;
                 }
             }
-            char delim[] = " ";
+            bool in = false;
+            bool out = false;
+            bool out2 = false;
+
+            char inRed[] = "<";
+            char outRed[] = ">";
+            char outRed2[] = ">>";
+
+            if (count(inRed,temp2) != 1) // Determine if non-piping redirection
+            {
+                in = true;
+            }
+            else if (count(outRed2,temp2) != 1)
+            {
+                out2 = true;
+            }
+            else if (count(outRed,temp2) != 1)
+            {
+                out = true;
+            }
+            else
+            {
+                cout << "no count worked... fail" << endl;
+            }
+
+
+            char delim2[] = " ";
             unsigned siz = strlen(temp2);
-            args[0] = strtok(temp2,delim);
+            args[0] = strtok(temp2,delim2);
             cout << "Args[0] = " << args[0] << endl;
             for (unsigned i = 1; i < siz; ++i)
             {
-                args[i] = strtok(NULL,delim);
+                args[i] = strtok(NULL,delim2);
                 printf("Args[%u] = %s\n",i,args[i]);
+                if (args[i] == NULL)
+                {
+                    break;
+                }
+            }
+
+            if (in)
+            {
+                fd = inputRedirect(args);
+            }
+            else if (out)
+            {
+                fd = outputRedirect(args);
+            }
+            else if (out2)
+            {
+                fd = outputRedirect2(args);
             }
         }
         else
         {
-            printf("Pipe doesn't exist\n");
             char delim[] = " ";
             args[0] = strtok(input,delim);
             for (unsigned h = 1; h < sz; ++h)
@@ -181,47 +327,6 @@ void split(char* cinput, char* args[], char split[])
                 break;
             }
         }
-        char** directions = new char*;
-        list<string> redirect = listRedirect(temp, directions);
-        if (!redirect.empty())
-        {
-            unsigned counter = 0;
-            unsigned sz = redirect.size();
-            char* temp2 = strtok(temp,directions[0]);
-            for (unsigned h = 1; h <= sz; h++)
-            {
-                int e = fork();
-                if (e == -1)
-                {
-                    perror("fork");
-                }
-                else if (e != 0)
-                {
-                    int* stat;
-                    int c = wait(&stat);
-                    if (c == -1)
-                    {
-                        perror("wait");
-                        exit(1);
-                    }
-                    ++counter;
-                    temp2 = strtok(NULL,directions[counter]);
-                }
-                else if (e == 0)
-                {
-                    break;
-                }
-            }
-            char delim[] = " ";         //Break commands into args and run
-            unsigned siz = strlen(temp2);
-            args[0] = strtok(temp2,delim);
-            for (unsigned i = 1; i < siz; ++i)
-            {
-                args[i] = strtok(NULL,delim);
-            }
-        }
-        else
-        {
             char delim[] = " ";         //Break commands into args and run
             unsigned sz = strlen(temp);
             args[0] = strtok(temp,delim);
@@ -229,7 +334,6 @@ void split(char* cinput, char* args[], char split[])
             {
                 args[i] = strtok(NULL,delim);
             }
-        }
         return;
     }
 }
