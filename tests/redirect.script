@@ -1,0 +1,249 @@
+Script started on Thu 20 Nov 2014 11:39:56 PM PST
+~
+bbenn003@hammer $ make
+make: *** No targets specified and no makefile found.  Stop.
+~
+bbenn003@hammer $ ls
+[0m[01;34mbin[0m/  [01;34mDesktop[0m/
+[m~
+bbenn003@hammer $ cd Desktop/CS_100/
+cp/                 firstrepo/          handle_signals.cpp  lab4/               lab6/               rshell/             ucr-cs100/
+~
+bbenn003@hammer $ cd Desktop/CS_100/rshell/
+~/Desktop/CS_100/rshell
+bbenn003@hammer $ make
+if [ ! -d bin ]; then mkdir bin; fi
+g++ -Wall -Werror -ansi -pedantic src/main.cpp -o bin/rshell
+g++ -Wall -Werror -ansi -pedantic src/ls.cpp -o bin/ls
+g++ -Wall -Werror -ansi -pedantic src/cp.cpp -o bin/cp
+~/Desktop/CS_100/rshell
+bbenn003@hammer $ bin/rshell
+bbenn003@hammer.cs.ucr.edu$ ls
+bin  LICENSE  Makefile	README.md  src	tests
+bbenn003@hammer.cs.ucr.edu$ touch f1          echo "file 1\nstill file 1" > f1
+open: No such file or directory
+bbenn003@hammer.cs.ucr.edu$ touch f1
+bbenn003@hammer.cs.ucr.edu$ echo "fil1 1\nstill file 1" > f1
+bbenn003@hammer.cs.ucr.edu$ cat f1
+"fil1 1\nstill file 1"
+bbenn003@hammer.cs.ucr.edu$ vim f1
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"f1" 1L, 23C[>c[1;1H"fil1 1\nstill file 1"
+[1m[34m~                                                                                                                                                     [3;1H~                                                                                                                                                     [4;1H~                                                                                                                                                     [5;1H~                                                                                                                                                     [6;1H~                                                                                                                                                     [7;1H~                                                                                                                                                     [8;1H~                                                                                                                                                     [9;1H~                                                                                                                                                     [10;1H~                                                                                                                                                     [11;1H~                                                                                                                                                     [12;1H~                                                                                                                                                     [13;1H~                                                                                                                                                     [14;1H~                                                                                                                                                     [15;1H~                                                                                                                                                     [16;1H~                                                                                                                                                     [17;1H~                                                                                                                                                     [18;1H~                                                                                                                                                     [19;1H~                                                                                                                                                     [20;1H~                                                                                                                                                     [21;1H~                                                                                                                                                     [22;1H~                                                                                                                                                     [23;1H~                                                                                                                                                     [24;1H~                                                                                                                                                     [25;1H~                                                                                                                                                     [26;1H~                                                                                                                                                     [27;1H~                                                                                                                                                     [28;1H~                                                                                                                                                     [29;1H~                                                                                                                                                     [30;1H~                                                                                                                                                     [31;1H~                                                                                                                                                     [32;1H~                                                                                                                                                     [33;1H~                                                                                                                                                     [34;1H~                                                                                                                                                     [35;1H~                                                                                                                                                     [36;1H~                                                                                                                                                     [m[37;133H1,1[11CAll[1;1HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[1;1H[K[37;1H--No lines in buffer--[37;133H[K[37;133H0,0-1[9CAll[1;1H[37;1H[1m-- INSERT --[m[37;13H[K[37;133H0,1[11CAll[1;1Hf[37;133H1,2[1;2Hfi[37;135H3[1;3Hil[37;135H4[1;4Hle[37;135H5[1;5H[37;135H6[1;6H 1[37;135H7[1;7H[2;1H[K[37;133H2,1[2;1Hs[37;135H2[2;2Hst[37;135H3[2;3Hti[37;135H4[2;4Hil[37;135H5[2;5Hll[37;135H6[2;6H[37;135H7[2;7H f[37;135H8[2;8Hfi[37;135H9[2;9Hil[37;135H10[2;10Hle[37;136H1[2;11H[37;136H2[2;12H 1[37;136H3[2;13H[37;1H[K[2;12H[37;133H2,12[10CAll[2;12H[37;133H[K[37;1H:x"f1" 2L, 20C written
+[?1l>[2J[?47l8bbenn003@hammer.cs.ucr.edu$ vim f2
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"f2" [New File][>c[2;1H[1m[34m~                                                                                                                                                     [3;1H~                                                                                                                                                     [4;1H~                                                                                                                                                     [5;1H~                                                                                                                                                     [6;1H~                                                                                                                                                     [7;1H~                                                                                                                                                     [8;1H~                                                                                                                                                     [9;1H~                                                                                                                                                     [10;1H~                                                                                                                                                     [11;1H~                                                                                                                                                     [12;1H~                                                                                                                                                     [13;1H~                                                                                                                                                     [14;1H~                                                                                                                                                     [15;1H~                                                                                                                                                     [16;1H~                                                                                                                                                     [17;1H~                                                                                                                                                     [18;1H~                                                                                                                                                     [19;1H~                                                                                                                                                     [20;1H~                                                                                                                                                     [21;1H~                                                                                                                                                     [22;1H~                                                                                                                                                     [23;1H~                                                                                                                                                     [24;1H~                                                                                                                                                     [25;1H~                                                                                                                                                     [26;1H~                                                                                                                                                     [27;1H~                                                                                                                                                     [28;1H~                                                                                                                                                     [29;1H~                                                                                                                                                     [30;1H~                                                                                                                                                     [31;1H~                                                                                                                                                     [32;1H~                                                                                                                                                     [33;1H~                                                                                                                                                     [34;1H~                                                                                                                                                     [35;1H~                                                                                                                                                     [36;1H~                                                                                                                                                     [m[37;133H0,0-1[9CAll[1;1HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[37;1H[1m-- INSERT --[m[37;13H[K[37;133H0,1[11CAll[1;1Hf[37;133H1,2[1;2Hfi[37;135H3[1;3Hil[37;135H4[1;4Hle[37;135H5[1;5H[37;135H6[1;6H 2[37;135H7[1;7H2![37;135H8[1;8H[2;1H[K[37;133H2,1[2;1Hd[37;135H2[2;2Hdi[37;135H3[2;3Hif[37;135H4[2;4Hff[37;135H5[2;5Hfe[37;135H6[2;6Her[37;135H7[2;7Hre[37;135H8[2;8Hen[37;135H9[2;9Hnt[37;135H10[2;10H[37;136H1[2;11H t[37;136H2[2;12Hth[37;136H3[2;13Hha[37;136H4[2;14Han[37;136H5[2;15H[37;136H6[2;16H 1[37;136H7[2;17H[37;1H[K[2;16H[37;133H2,16[10CAll[2;16H[37;133H[K[37;1H:x"f2" [New] 2L, 25C written
+[?1l>[2J[?47l8bbenn003@hammer.cs.ucr.edu$ cat f1
+file 1
+still file 1
+bbenn003@hammer.cs.ucr.edu$ cat f2
+file 2!
+different than 1
+bbenn003@hammer.cs.ucr.edu$ cat test        ls
+bin  f1  f2  LICENSE  Makefile	README.md  src	tests
+bbenn003@hammer.cs.ucr.edu$ touch test.txt
+bbenn003@hammer.cs.ucr.edu$ cat f1 > test.txt
+bbenn003@hammer.cs.ucr.edu$ cat f test.tst  xt
+file 1
+still file 1
+bbenn003@hammer.cs.ucr.edu$ cat f1  > tex st.txt
+open: No such file or directory
+bbenn003@hammer.cs.ucr.edu$ cat f1 >tex st.txt
+open: No such file or directory
+bbenn003@hammer.cs.ucr.edu$ cat f1>test.txt
+open: No such file or directory
+bbenn003@hammer.cs.ucr.edu$ cat f test.txt
+file 1
+still file 1
+bbenn003@hammer.cs.ucr.edu$ cat f1 >> test.txt
+bbenn003@hammer.cs.ucr.edu$ cat test.txt
+file 1
+still file 1
+file 1
+still file 1
+bbenn003@hammer.cs.ucr.edu$ cat f2 > test.txt
+bbenn003@hammer.cs.ucr.edu$ cat f2 >> test.txt
+bbenn003@hammer.cs.ucr.edu$ cat test.txt
+file 2!
+different than 1
+1
+still file 1
+file 2!
+different than 1
+bbenn003@hammer.cs.ucr.edu$ rm test.txt
+bbenn003@hammer.cs.ucr.edu$ touch test.txt
+bbenn003@hammer.cs.ucr.edu$ cat f2 > test.txt
+bbenn003@hammer.cs.ucr.edu$ cat ft >>    2 >> test.txt
+bbenn003@hammer.cs.ucr.edu$ cat test.txt
+file 2!
+different than 1
+file 2!
+different than 1
+bbenn003@hammer.cs.ucr.edu$ cat f1 > test.txt
+bbenn003@hammer.cs.ucr.edu$ cat s test.txt
+file 1
+still file 1
+an 1
+file 2!
+different than 1
+bbenn003@hammer.cs.ucr.edu$ jh  cat <f1      <  < 1 f1
+file 1
+still file 1
+bbenn003@hammer.cs.ucr.edu$ cat  < f1
+open: No such file or directory
+bbenn003@hammer.cs.ucr.edu$ cat <f1
+open: No such file or directory
+bbenn003@hammer.cs.ucr.edu$ cat<f1
+open: No such file or directory
+bbenn003@hammer.cs.ucr.edu$ cat < f1
+file 1
+still file 1
+bbenn003@hammer.cs.ucr.edu$ cat f1
+file 1
+still file 1
+bbenn003@hammer.cs.ucr.edu$ fat   cat f1  < f1 |
+bbenn003@hammer.cs.ucr.edu$ cat < f1 
+file 1
+still file 1
+bbenn003@hammer.cs.ucr.edu$   cat < f1 | cat
+bbenn003@hammer.cs.ucr.edu$ cat f1   2        cat f1 | cat
+bbenn003@hammer.cs.ucr.edu$ cat f2 | cat
+^C
+~/Desktop/CS_100/rshell
+bbenn003@hammer $ bin/rshell
+bbenn003@hammer.cs.ucr.edu$ cat > ou        touch typo eout
+bbenn003@hammer.cs.ucr.edu$ cat > typeout
+asdf
+asdf
+asdf
+jkl
+jkl
+blah
+bbenn003@hammer.cs.ucr.edu$ ls
+bin  f1  f2  LICENSE  Makefile	README.md  src	tests  test.txt  typeout
+bbenn003@hammer.cs.ucr.edu$ cat typeout
+asdf
+asdf
+asdf
+jkl
+jkl
+blah
+bbenn003@hammer.cs.ucr.edu$ echo some text > typeout
+bbenn003@hammer.cs.ucr.edu$ cat typeout
+some text
+asdf
+jkl
+jkl
+blah
+bbenn003@hammer.cs.ucr.edu$ t rm typeout
+bbenn003@hammer.cs.ucr.edu$ ls
+bin  f1  f2  LICENSE  Makefile	README.md  src	tests  test.txt
+bbenn003@hammer.cs.ucr.edu$ rm test.txt f1 f2
+bbenn003@hammer.cs.ucr.edu$ touch f1 f2 f3 f4
+bbenn003@hammer.cs.ucr.edu$ vim f1
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"f1" 0L, 0C[>c[2;1H[1m[34m~                                                                                                                                                     [3;1H~                                                                                                                                                     [4;1H~                                                                                                                                                     [5;1H~                                                                                                                                                     [6;1H~                                                                                                                                                     [7;1H~                                                                                                                                                     [8;1H~                                                                                                                                                     [9;1H~                                                                                                                                                     [10;1H~                                                                                                                                                     [11;1H~                                                                                                                                                     [12;1H~                                                                                                                                                     [13;1H~                                                                                                                                                     [14;1H~                                                                                                                                                     [15;1H~                                                                                                                                                     [16;1H~                                                                                                                                                     [17;1H~                                                                                                                                                     [18;1H~                                                                                                                                                     [19;1H~                                                                                                                                                     [20;1H~                                                                                                                                                     [21;1H~                                                                                                                                                     [22;1H~                                                                                                                                                     [23;1H~                                                                                                                                                     [24;1H~                                                                                                                                                     [25;1H~                                                                                                                                                     [26;1H~                                                                                                                                                     [27;1H~                                                                                                                                                     [28;1H~                                                                                                                                                     [29;1H~                                                                                                                                                     [30;1H~                                                                                                                                                     [31;1H~                                                                                                                                                     [32;1H~                                                                                                                                                     [33;1H~                                                                                                                                                     [34;1H~                                                                                                                                                     [35;1H~                                                                                                                                                     [36;1H~                                                                                                                                                     [m[37;133H0,0-1[9CAll[1;1HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[37;1H[1m-- INSERT --[m[37;133H[K[37;133H0,1[11CAll[1;1Hf[37;133H1,2[1;2Hfi[37;135H3[1;3Hil[37;135H4[1;4Hle[37;135H5[1;5H[37;135H6[1;6H 1[37;135H7[1;7H[37;1H[K[1;6H[37;133H1,6[11CAll[1;6H[37;133H[K[37;1H:x"f1" 1L, 7C written
+[?1l>[2J[?47l8bbenn003@hammer.cs.ucr.edu$ vim f2  
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"f2" 0L, 0C[>c[2;1H[1m[34m~                                                                                                                                                     [3;1H~                                                                                                                                                     [4;1H~                                                                                                                                                     [5;1H~                                                                                                                                                     [6;1H~                                                                                                                                                     [7;1H~                                                                                                                                                     [8;1H~                                                                                                                                                     [9;1H~                                                                                                                                                     [10;1H~                                                                                                                                                     [11;1H~                                                                                                                                                     [12;1H~                                                                                                                                                     [13;1H~                                                                                                                                                     [14;1H~                                                                                                                                                     [15;1H~                                                                                                                                                     [16;1H~                                                                                                                                                     [17;1H~                                                                                                                                                     [18;1H~                                                                                                                                                     [19;1H~                                                                                                                                                     [20;1H~                                                                                                                                                     [21;1H~                                                                                                                                                     [22;1H~                                                                                                                                                     [23;1H~                                                                                                                                                     [24;1H~                                                                                                                                                     [25;1H~                                                                                                                                                     [26;1H~                                                                                                                                                     [27;1H~                                                                                                                                                     [28;1H~                                                                                                                                                     [29;1H~                                                                                                                                                     [30;1H~                                                                                                                                                     [31;1H~                                                                                                                                                     [32;1H~                                                                                                                                                     [33;1H~                                                                                                                                                     [34;1H~                                                                                                                                                     [35;1H~                                                                                                                                                     [36;1H~                                                                                                                                                     [m[37;133H0,0-1[9CAll[1;1HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[37;1H[K[37;1H:read f1"f1" [37;7H[K[37;6H1L, 7C[2;1Hfile 1[2;7H[K[37;133H2,1[11CAll[2;1H[37;133H1,0-1[1;1H[1;36r[36;1H
+[1;37r[36;1H[1m[34m~                                                                                                                                                     [m[37;1H[K[37;133H1,1[11CAll[1;1H[37;1H[1m-- INSERT --[m[37;133H[K[37;133H1,7[11CAll[1;7H[37;1H[K[1;6H[37;133H1,6[11CAll[1;6H[37;135H5[1;5H 2[37;135H6[1;6H[37;133H[K[37;1H:x"f2" 1L, 7C written
+[?1l>[2J[?47l8bbenn003@hammer.cs.ucr.edu$ vim f3
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"f3" 0L, 0C[>c[2;1H[1m[34m~                                                                                                                                                     [3;1H~                                                                                                                                                     [4;1H~                                                                                                                                                     [5;1H~                                                                                                                                                     [6;1H~                                                                                                                                                     [7;1H~                                                                                                                                                     [8;1H~                                                                                                                                                     [9;1H~                                                                                                                                                     [10;1H~                                                                                                                                                     [11;1H~                                                                                                                                                     [12;1H~                                                                                                                                                     [13;1H~                                                                                                                                                     [14;1H~                                                                                                                                                     [15;1H~                                                                                                                                                     [16;1H~                                                                                                                                                     [17;1H~                                                                                                                                                     [18;1H~                                                                                                                                                     [19;1H~                                                                                                                                                     [20;1H~                                                                                                                                                     [21;1H~                                                                                                                                                     [22;1H~                                                                                                                                                     [23;1H~                                                                                                                                                     [24;1H~                                                                                                                                                     [25;1H~                                                                                                                                                     [26;1H~                                                                                                                                                     [27;1H~                                                                                                                                                     [28;1H~                                                                                                                                                     [29;1H~                                                                                                                                                     [30;1H~                                                                                                                                                     [31;1H~                                                                                                                                                     [32;1H~                                                                                                                                                     [33;1H~                                                                                                                                                     [34;1H~                                                                                                                                                     [35;1H~                                                                                                                                                     [36;1H~                                                                                                                                                     [m[37;133H0,0-1[9CAll[1;1HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[37;1H[K[37;1H:read f2"f2" [37;7H[K[37;6H1L, 7C[2;1Hfile 2[2;7H[K[37;133H2,1[11CAll[2;1H[37;133H1,0-1[1;1H[1;36r[36;1H
+[1;37r[36;1H[1m[34m~                                                                                                                                                     [m[37;1H[K[37;133H1,1[11CAll[1;1Hfile 3[37;135H6[1;6H[37;133H[K[37;1H:x"f3" 1L, 7C written
+[?1l>[2J[?47l8bbenn003@hammer.cs.ucr.edu$ vim f3 4
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"f4" 0L, 0C[>c[2;1H[1m[34m~                                                                                                                                                     [3;1H~                                                                                                                                                     [4;1H~                                                                                                                                                     [5;1H~                                                                                                                                                     [6;1H~                                                                                                                                                     [7;1H~                                                                                                                                                     [8;1H~                                                                                                                                                     [9;1H~                                                                                                                                                     [10;1H~                                                                                                                                                     [11;1H~                                                                                                                                                     [12;1H~                                                                                                                                                     [13;1H~                                                                                                                                                     [14;1H~                                                                                                                                                     [15;1H~                                                                                                                                                     [16;1H~                                                                                                                                                     [17;1H~                                                                                                                                                     [18;1H~                                                                                                                                                     [19;1H~                                                                                                                                                     [20;1H~                                                                                                                                                     [21;1H~                                                                                                                                                     [22;1H~                                                                                                                                                     [23;1H~                                                                                                                                                     [24;1H~                                                                                                                                                     [25;1H~                                                                                                                                                     [26;1H~                                                                                                                                                     [27;1H~                                                                                                                                                     [28;1H~                                                                                                                                                     [29;1H~                                                                                                                                                     [30;1H~                                                                                                                                                     [31;1H~                                                                                                                                                     [32;1H~                                                                                                                                                     [33;1H~                                                                                                                                                     [34;1H~                                                                                                                                                     [35;1H~                                                                                                                                                     [36;1H~                                                                                                                                                     [m[37;133H0,0-1[9CAll[1;1HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[37;1H[K[37;1H:read 5[37;7H[K[37;7Hf3"f3" [37;7H[K[37;6H1L, 7C[2;1Hfile 3[2;7H[K[37;133H2,1[11CAll[2;1H[37;133H1,0-1[1;1H[1;36r[36;1H
+[1;37r[36;1H[1m[34m~                                                                                                                                                     [m[37;1H[K[37;133H1,1[11CAll[1;1Hfile 4[37;135H6[1;6H[37;133H[K[37;1H:x"f4" 1L, 7C written
+[?1l>[2J[?47l8bbenn003@hammer.cs.ucr.edu$ cat f1
+file 1
+bbenn003@hammer.cs.ucr.edu$ cat f2
+file 2
+bbenn003@hammer.cs.ucr.edu$ cat f3
+file 3
+bbenn003@hammer.cs.ucr.edu$ cat f4
+file 4
+bbenn003@hammer.cs.ucr.edu$ md5sum f1 f2 f3 f4 
+e243bb39c844b3543a7726576c869caf  f1
+4349cfeff8e2eb74dffc369bb5fd084e  f2
+9c38e8324dbf031557c89d53a39f0b26  f3
+fb8b37442ead70d36d54d241a0c7e069  f4
+bbenn003@hammer.cs.ucr.edu$ fd4   md4 5sum f1 f3 2 f3 f4 | sort
+
+
+
+
+
+f1 f2 f3 f4
+
+
+
+
+
+f1 f2 f3 f4
+bbenn003@hammer.cs.ucr.edu$ f md4     | sort
+^C
+~/Desktop/CS_100/rshell
+bbenn003@hammer $ bin/rshell
+bbenn003@hammer.cs.ucr.edu$ sort
+a
+b
+d
+e
+ga
+s
+d
+s
+d
+a
+b
+d
+d
+d
+e
+ga
+s
+s
+bbenn003@hammer.cs.ucr.edu$ md5sum f1 f2 f3 f4 > out
+open: No such file or directory
+bbenn003@hammer.cs.ucr.edu$ touch out md   
+bbenn003@hammer.cs.ucr.edu$ md5sum f1 f2 f3 f3 4 > out
+bbenn003@hammer.cs.ucr.edu$ ls
+bin  f1  f2  f3  f4  LICENSE  Makefile	out  README.md	src  tests
+bbenn003@hammer.cs.ucr.edu$ vim out
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"out" 4L, 148C[>c[1;1He243bb39c844b3543a7726576c869caf  f1
+4349cfeff8e2eb74dffc369bb5fd084e  f2
+9c38e8324dbf031557c89d53a39f0b26  f3
+fb8b37442ead70d36d54d241a0c7e069  f4
+[1m[34m~                                                                                                                                                     [6;1H~                                                                                                                                                     [7;1H~                                                                                                                                                     [8;1H~                                                                                                                                                     [9;1H~                                                                                                                                                     [10;1H~                                                                                                                                                     [11;1H~                                                                                                                                                     [12;1H~                                                                                                                                                     [13;1H~                                                                                                                                                     [14;1H~                                                                                                                                                     [15;1H~                                                                                                                                                     [16;1H~                                                                                                                                                     [17;1H~                                                                                                                                                     [18;1H~                                                                                                                                                     [19;1H~                                                                                                                                                     [20;1H~                                                                                                                                                     [21;1H~                                                                                                                                                     [22;1H~                                                                                                                                                     [23;1H~                                                                                                                                                     [24;1H~                                                                                                                                                     [25;1H~                                                                                                                                                     [26;1H~                                                                                                                                                     [27;1H~                                                                                                                                                     [28;1H~                                                                                                                                                     [29;1H~                                                                                                                                                     [30;1H~                                                                                                                                                     [31;1H~                                                                                                                                                     [32;1H~                                                                                                                                                     [33;1H~                                                                                                                                                     [34;1H~                                                                                                                                                     [35;1H~                                                                                                                                                     [36;1H~                                                                                                                                                     [m[37;133H1,1[11CAll[1;1HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[37;1H[K[37;1H:q[37;1H[K[37;1H[?1l>[2J[?47l8bbenn003@hammer.cs.ucr.edu$ sour  rt < out
+4349cfeff8e2eb74dffc369bb5fd084e  f2
+9c38e8324dbf031557c89d53a39f0b26  f3
+e243bb39c844b3543a7726576c869caf  f1
+fb8b37442ead70d36d54d241a0c7e069  f4
+bbenn003@hammer.cs.ucr.edu$ cat f2 1        touch file    file
+bbenn003@hammer.cs.ucr.edu$ cat file
+bbenn003@hammer.cs.ucr.edu$ cat f1 > fil1 e
+bbenn003@hammer.cs.ucr.edu$ cat file
+file 1
+bbenn003@hammer.cs.ucr.edu$ cat f2 > file
+bbenn003@hammer.cs.ucr.edu$ cat file
+file 2
+bbenn003@hammer.cs.ucr.edu$ cat f3 > file
+bbenn003@hammer.cs.ucr.edu$ cat fil3 e
+file 3
+bbenn003@hammer.cs.ucr.edu$ cat f   f5 4 > file
+bbenn003@hammer.cs.ucr.edu$ cat file
+file 4
+bbenn003@hammer.cs.ucr.edu$ cat f1 > file
+bbenn003@hammer.cs.ucr.edu$ cat f2 >> file
+bbenn003@hammer.cs.ucr.edu$ cat f3 >> file
+bbenn003@hammer.cs.ucr.edu$ cat f 4  4 >> file
+bbenn003@hammer.cs.ucr.edu$ cat file
+file 1
+file 2
+file 3
+file 4
+bbenn003@hammer.cs.ucr.edu$ rm file
+bbenn003@hammer.cs.ucr.edu$ rm f1 f2 f3 f4
+bbenn003@hammer.cs.ucr.edu$ ls
+bin  LICENSE  Makefile	out  README.md	src  tests
+bbenn003@hammer.cs.ucr.edu$ exit
+~/Desktop/CS_100/rshell
+bbenn003@hammer $ exit
+exit
+
+Script done on Thu 20 Nov 2014 11:54:15 PM PST
