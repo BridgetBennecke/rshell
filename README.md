@@ -6,6 +6,10 @@ rShell can run multiple commands.
 * Commands can be connected by ```;```,```||```,or ```&&```.
 * Prints out prompt as ```user@hostname$```
 * Anything typed after a ```#``` is considered a comment and not run
+rShell can redirect data
+* ```<``` will redirect input
+* ```>``` will redirect output
+* ```|``` pipes data
 
 ## Known Bugs
 
@@ -16,6 +20,10 @@ rShell can run multiple commands.
 * running exit with a connector and no other commands will cause exit to fail
 * seems to only successfully executes commands in /bin
 * a line cannot exclusively be a comment, else ```#``` is seen as a command
+* ```>>``` will not append, only replace text
+* ```|``` causes infinite loop failure
+* ```>``` and ```>>``` will not create a new file if file does not exist
+* redirection cannot be used with connectors present
 
 #ls
 
