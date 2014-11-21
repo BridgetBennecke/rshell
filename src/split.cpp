@@ -11,19 +11,19 @@ using namespace std;
 
 int inputRedirect (char* args[])
 {
-    cout << "inputRedirect" << endl;
+    // cout << "inputRedirect" << endl;
     string fileStr;
     for (unsigned a = 0; args[a+1] != '\0'; a++)
     {
-        printf("ponter not here args[%u] = \"%s\"\n",a,args[a]);
+        // printf("ponter not here args[%u] = \"%s\"\n",a,args[a]);
         if (strcmp(args[a],"<") == 0)
         {
-            printf("args[%u] = \"%s\"\n",a+1,args[a+1]);
+            // printf("args[%u] = \"%s\"\n",a+1,args[a+1]);
             fileStr = args[a+1];
-            cout << endl;
+            // cout << endl;
             args[a] = 0;
             args[a+1] = 0;
-            cout << "after deletion" << endl;
+            // cout << "after deletion" << endl;
             break;
         }
     }
@@ -45,23 +45,23 @@ int inputRedirect (char* args[])
 int outputRedirect (char* args[])
 {
 
-    cout << "outputRedirect" << endl;
+    // cout << "outputRedirect" << endl;
     string fileStr;
     for (unsigned a = 0; args[a+1] != '\0'; a++)
     {
-        printf("pointer %p\nargs[%u] = \"%s\"\n",args[a],a,args[a]);
+        // printf("pointer %p\nargs[%u] = \"%s\"\n",args[a],a,args[a]);
         if (strcmp(args[a],">") == 0)
         {
-            printf("pointer %p\nargs[%u] = \"%s\"\n",args[a+1],a+1,args[a+1]);
+            // printf("pointer %p\nargs[%u] = \"%s\"\n",args[a+1],a+1,args[a+1]);
             fileStr = args[a+1];
-            cout << endl;
+            // cout << endl;
             args[a] = 0;
             args[a+1] = 0;
-            cout << "after deletion" << endl;
+            // cout << "after deletion" << endl;
             // break;
         }
     }
-    printf("File: %s\n",fileStr.c_str());
+    // printf("File: %s\n",fileStr.c_str());
     int file = open(fileStr.c_str(), O_RDWR);
     if (file == -1)
     {
@@ -79,27 +79,27 @@ int outputRedirect (char* args[])
 
 int outputRedirect2 (char* args[])
 {
-    cout << "outputRedirect2" << endl;
+    // cout << "outputRedirect2" << endl;
     string fileStr;
     for (unsigned a = 0; args[a+1] != '\0'; a++)
     {
-        printf("pointer %p\nargs[%u] = \"%s\"\n",args[a],a,args[a]);
+        // printf("pointer %p\nargs[%u] = \"%s\"\n",args[a],a,args[a]);
         if (strcmp(args[a],">>") == 0)
         {
-            printf("pointer %p\nargs[%u] = \"%s\"\n",args[a+1],a+1,args[a+1]);
+            // printf("pointer %p\nargs[%u] = \"%s\"\n",args[a+1],a+1,args[a+1]);
             fileStr = args[a+1];
-            cout << endl;
+            // cout << endl;
             args[a] = 0;
             args[a+1] = 0;
-            cout << "after deletion" << endl;
+            // cout << "after deletion" << endl;
             // break;
         }
     }
-    printf("File: %s\n",fileStr.c_str());
+    // printf("File: %s\n",fileStr.c_str());
     int file = open(fileStr.c_str(), O_RDWR, O_APPEND);
     if (file == -1)
     {
-        cout << "p-erroring" << endl;
+        // cout << "p-erroring" << endl;
         perror("open");
         exit(1);
     }
@@ -133,15 +133,20 @@ unsigned count(char* split, char* input)
     unsigned count = 1;
     if (strcmp(split, ">>") != 0)
     {
+        // cout << "strlen(input) [count]: " << strlen(input) << endl;
         for (unsigned c = 0; c < strlen(input); ++c)
         {
+            // cout << '\'' << input[c] << '\'' << " == " << '\'' <<
+            // split[0] << '\'' << "? (" << (input[c] == split[0]) << ')'
+            // << endl;
             if (input[c] == split[0])
             {
                 count += 1;
-                // if (split[1] == split[0])
-                // {
-                    // ++c;
-                // }
+                // cout << "count: " << count << endl;
+                if (split[1] == split[0])
+                {
+                    ++c;
+                }
             }
         }
     }
@@ -166,9 +171,6 @@ void split(char* cinput, char* args[], char split[])
     unsigned sz = strlen(input);
     if (split == NULL)
     {
-        if (hasRedirect(input))
-        {
-            cout << "Redirect isn't empty" << endl;
             int savestdin = dup(0); // Save the stdin and stdout nums
             if (savestdin == -1)
             {
@@ -181,16 +183,30 @@ void split(char* cinput, char* args[], char split[])
                 perror("dup");
                 exit(1);
             }
+        if (hasRedirect(input))
+        {
+            // cout << "Redirect isn't empty" << endl;
             int fd = -5;
 
             char delim[] = "|";
-            char* temp2 = strtok(input,delim); // Split up by pipe if necessary
             unsigned sz = count(delim, input);
+            char* temp2 = strtok(input,delim); // Split up by pipe if necessary
 
+            // cout << "sz: " << sz << endl;
+
+            // for(int i = 0; args[i] != 0; ++i)
+                // cout << "args[" << i << "]: " << args[i] << endl;
             for (unsigned h = 1; h < sz; h++)
             {
-                cout << "Forking" << endl;
+                int fide[2];
+                if (pipe(fide) == -1)
+                {
+                    perror("pipe");
+                    exit(1);
+                }
+                // cout << "Forking" << endl;
                 int e = fork();
+                // cout << "e: " << e << endl;
                 if (e == -1)
                 {
                     perror("fork");
@@ -198,7 +214,17 @@ void split(char* cinput, char* args[], char split[])
                 }
                 else if (e != 0) // Parent Process
                 {
-                    cout << "In parent" << endl;
+                    // cout << "In parent" << endl;
+                    if (dup2(fide[0],0) == -1) // Assign input
+                    {
+                        perror("dup2");
+                        exit(1);
+                    }
+                    if (close(fide[1]) == -1) // Close output
+                    {
+                        perror("close");
+                        exit(1);
+                    }
                     int* stat;
                     int c = wait(&stat);
                     if (c == -1)
@@ -206,29 +232,36 @@ void split(char* cinput, char* args[], char split[])
                         perror("wait");
                         exit(1);
                     }
-                    if (fd != -5)
+                    if (fd != -5 && close(fd) == -1)
                     {
-                        if (close(fd) == -1)
-                        {
                             perror("close");
                             exit(1);
-                        }
-                        if (dup2(savestdin,0) == -1)
-                        {
-                            perror("dup2");
-                            exit(1);
-                        }
-                        if (dup2(savestdout,1) == -1)
-                        {
-                            perror("dup2");
-                            exit(1);
-                        }
                     }
+                    if (dup2(savestdin,0) == -1)
+                    {
+                        perror("dup2");
+                        exit(1);
+                    }
+                    // if (dup2(savestdout,1) == -1)
+                    // {
+                        // perror("dup2");
+                        // exit(1);
+                    // }
                     temp2 = strtok(NULL,delim);
                 }
                 else if (e == 0) // Child Process
                 {
-                    cout << "In child" << endl;
+                    // cout << "In child" << endl;
+                    if (dup2(fide[1],1) == -1)
+                    {
+                        perror("dup2");
+                        exit(1);
+                    }
+                    if (close(fide[0]) == -1)
+                    {
+                        perror("close");
+                        exit(1);
+                    }
                     break;
                 }
             }
@@ -252,20 +285,16 @@ void split(char* cinput, char* args[], char split[])
             {
                 out = true;
             }
-            else
-            {
-                cout << "no count worked... fail" << endl;
-            }
 
 
             char delim2[] = " ";
             unsigned siz = strlen(temp2);
             args[0] = strtok(temp2,delim2);
-            cout << "Args[0] = " << args[0] << endl;
+            // cout << "Args[0] = " << args[0] << endl;
             for (unsigned i = 1; i < siz; ++i)
             {
                 args[i] = strtok(NULL,delim2);
-                printf("Args[%u] = %s\n",i,args[i]);
+                // printf("Args[%u] = %s\n",i,args[i]);
                 if (args[i] == NULL)
                 {
                     break;
